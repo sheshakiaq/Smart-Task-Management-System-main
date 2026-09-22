@@ -3,11 +3,11 @@ pipeline{
   
   stages{
     stage('checkout'){
-      step{
+      steps{
         git url:'https://github.com/sheshakiaq/Smart-Task-Management-System-main.git'
       }
     stage('Cloning'){
-      step{
+      steps{
         echo "Repo Cloned"
       }
     }
