@@ -4,7 +4,7 @@ pipeline{
   stages{
     stage('checkout'){
       step{
-        sh git clone https://github.com/sheshakiaq/Smart-Task-Management-System-main.git
+        git url:'https://github.com/sheshakiaq/Smart-Task-Management-System-main.git'
       }
     stage('Cloning'){
       step{
