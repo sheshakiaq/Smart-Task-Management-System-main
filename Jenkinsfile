@@ -4,13 +4,13 @@ pipeline{
   stages{
     stage('checkout'){
       steps{
-        git branch: 'main'
-        url: 'https://github.com/sheshakiaq/Smart-Task-Management-System-main.git'
+        git branch: 'main',
+          url: 'https://github.com/sheshakiaq/Smart-Task-Management-System-main.git'
       }
     }      
     stage('Cloning'){
       steps{
-        echo "Repo Cloned"
+        echo "Repo Cloned ..."
       }
     }
   }
