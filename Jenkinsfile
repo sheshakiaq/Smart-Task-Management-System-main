@@ -5,6 +5,12 @@ pipeline{
     nodejs 'Nodejs-Id'
   }
   
+  environment{
+    AWS_REGION= 'us-east-1'
+    S3_BUCKET= 'devops-flow-task'
+    CLOUDFRONT_DIST_ID= 'E1O2W4RXQBAN'
+    AWS_CREDENTIALS= credentials('aws-id')
+  }
   stages{
     stage('checkout'){
       steps{
@@ -73,22 +79,24 @@ pipeline{
     }
    stage('Deploy S3 Bucket'){
      steps{
-       withCredentials([
-         usernamePassword(
-           credentialsId: 'floci-id',
-           usernamwVariable: 'AWS_ACCESS_KEY_ID',
-           passwordVariable: 'AWS_SECRET_ACCESS_KEY'
-         )
-       ]){
          echo 'updating S3 Bucket'
        sh ''' 
-         aws --endpoint-url=http://172.17.0.2:4566 \
-         s3 sync frontend/dist/ \
-         s3://devops-flow-task/ \
-         --delete 
+         aws s3 sync frontend/dist/ \
+         s3://$S3_BUCKET/ \
+         --delete \
+         --region $AWS_REGION
        '''
        echo 'Frontend Uploaded Successfully'
        }      
+     }
+   stage{
+     steps{
+       echo 'Deploying...'
+       sh ''' 
+         aws-cloudfront create-invitation \
+         --distribution-id $CLOUDFRONT_DIST_ID \
+         --paths "/*"
+       '''
      }
    }
   }
