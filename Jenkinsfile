@@ -89,7 +89,7 @@ pipeline{
        echo 'Frontend Uploaded Successfully'
        }      
      }
-   stage{
+   stage('Cloudfront Deployment'){
      steps{
        echo 'Deploying...'
        sh ''' 
