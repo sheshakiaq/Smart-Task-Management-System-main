@@ -30,5 +30,15 @@ pipeline{
         echo "npm installed"
       }
     }
+    
+    stage('Test NPM'){
+      steps{
+        echo ('Testing NPM..')
+        sh '''
+          npm test --run
+        '''
+        echo 'Test Completed'
+      }
+    }
   }
 }
