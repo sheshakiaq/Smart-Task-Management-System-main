@@ -18,7 +18,10 @@ pipeline{
       steps{
         echo "Installing npm denpendecies"
         sh '''
-          cd frontend && npm install
+          node --version
+          npm --version
+          cd frontend 
+          npm install
         '''
         echo "npm installed"
       }
