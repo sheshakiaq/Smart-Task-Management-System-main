@@ -93,7 +93,7 @@ pipeline{
      steps{
        echo 'Deploying...'
        sh ''' 
-         aws cloudfront create-invitation \
+         aws cloudfront create-invalidation \
          --distribution-id ${CLOUDFRONT_DIST_ID} \
          --paths "/*"
        '''
