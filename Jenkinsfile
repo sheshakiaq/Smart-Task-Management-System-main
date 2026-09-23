@@ -41,5 +41,27 @@ pipeline{
         echo 'Test Completed'
       }
     }
+    stage('Sonarqube Analysis') {
+            steps {
+              echo 'Sonarqube process '
+                script {
+                    def scannerhome = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    sh """
+                            ${scannerhome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=devops-flow-task \
+                            -Dsonar.sources=frontend\
+                            -Dsonar.host.url=http://localhost:9000 \
+                            -Dsonar.login=${SONAR_TOKEN}
+                       """
+                    }
+                   
+                 echo 'Sonarqube Process Success'
+                  
+                
+                } 
+            }
+        }
   }
 }
