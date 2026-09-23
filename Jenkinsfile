@@ -4,10 +4,6 @@ pipeline{
   tools{
     nodejs 'Nodejs-Id'
   }
-  environment{
-    S3_BUCKET= devops-flow-task
-    CLOUD_DIST_ID=
-  }
   
   stages{
     stage('checkout'){
@@ -64,8 +60,8 @@ pipeline{
                    
                  echo 'Sonarqube Process Success'
                 } 
-            }
-        }
+      }
+    }
     stage('Build Frontend'){
       steps{
         echo 'Bulding React project'
@@ -78,11 +74,12 @@ pipeline{
      steps{
        echo 'updating S3 Bucket'
        sh ''' 
-         aws s3 sync dist/
-         s3://$S3_BUCKET \
-         --delete \
-         --region $AWS_REGION
+         aws --endpoint-url=http://172.17.0.2:4566\
+         aws s3 sync frontend/dist/ \
+         s3://devops-flow-task/ \
+         --delete 
        '''
+       echo 'Frontend Uploaded Successfully'
      }
    }
   }
