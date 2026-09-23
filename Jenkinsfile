@@ -41,6 +41,7 @@ pipeline{
         echo 'Test Completed'
       }
     }
+   
     stage('Sonarqube Analysis') {
             steps {
               echo 'Sonarqube process '
@@ -58,8 +59,6 @@ pipeline{
                     }
                    
                  echo 'Sonarqube Process Success'
-                  
-                
                 } 
             }
         }
@@ -70,5 +69,6 @@ pipeline{
                 }
             }
         }
+        
   }
 }
