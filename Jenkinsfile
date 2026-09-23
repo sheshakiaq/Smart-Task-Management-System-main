@@ -13,5 +13,15 @@ pipeline{
         echo "Repo Cloned ..."
       }
     }
+    
+    stage('Install Dependencies'){
+      steps{
+        echo "Installing npm denpendecies"
+        sh '''
+        cd frontend && npm install
+        '''
+        echo "npm installed"
+      }
+    }
   }
 }
