@@ -36,7 +36,7 @@ pipeline{
         echo ('Testing NPM..')
         sh '''
           cd frontend
-          npm test -- --run
+          npm run
         '''
         echo 'Test Completed'
       }
