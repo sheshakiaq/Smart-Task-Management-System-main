@@ -76,7 +76,7 @@ pipeline{
        echo 'updating S3 Bucket'
        sh ''' 
          aws --endpoint-url=http://172.17.0.2:4566\
-         aws s3 sync frontend/dist/ \
+         s3 sync frontend/dist/ \
          s3://devops-flow-task/ \
          --delete 
        '''
