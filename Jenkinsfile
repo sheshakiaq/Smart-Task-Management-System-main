@@ -4,6 +4,10 @@ pipeline{
   tools{
     nodejs 'Nodejs-Id'
   }
+  environment{
+    S3_BUCKET= devops-flow-task
+    CLOUD_DIST_ID=
+  }
   
   stages{
     stage('checkout'){
@@ -62,13 +66,24 @@ pipeline{
                 } 
             }
         }
-    stage('Quality Gate') {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false
-                }
-            }
-        }
-        
+    stage('Build Frontend'){
+      steps{
+        echo 'Bulding React project'
+        sh '''
+          npm run build
+        '''
+      }
+    }
+   stage('Deploy S3 Bucket'){
+     steps{
+       echo 'updating S3 Bucket'
+       sh ''' 
+         aws s3 sync dist/
+         s3://$S3_BUCKET \
+         --delete \
+         --region $AWS_REGION
+       '''
+     }
+   }
   }
 }
