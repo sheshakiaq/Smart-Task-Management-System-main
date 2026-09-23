@@ -35,6 +35,7 @@ pipeline{
       steps{
         echo ('Testing NPM..')
         sh '''
+          cd frontend
           npm test -- --run
         '''
         echo 'Test Completed'
