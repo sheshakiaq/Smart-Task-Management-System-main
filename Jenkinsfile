@@ -73,7 +73,14 @@ pipeline{
     }
    stage('Deploy S3 Bucket'){
      steps{
-       echo 'updating S3 Bucket'
+       withCredentials([
+         usernamePassword(
+           credentialsId: 'floci-id',
+           usernamwVariable: 'AWS_ACCESS_KEY_ID';
+           passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+         )
+       ]){
+         echo 'updating S3 Bucket'
        sh ''' 
          aws --endpoint-url=http://172.17.0.2:4566 \
          s3 sync frontend/dist/ \
@@ -81,6 +88,7 @@ pipeline{
          --delete 
        '''
        echo 'Frontend Uploaded Successfully'
+       }      
      }
    }
   }
