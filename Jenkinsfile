@@ -50,7 +50,7 @@ pipeline{
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                     sh """
                             ${scannerhome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=devops-flow-task \
+                            -Dsonar.projectKey=devops-flow \
                             -Dsonar.sources=frontend\
                             -Dsonar.host.url=http://localhost:9000 \
                             -Dsonar.login=${SONAR_TOKEN}
