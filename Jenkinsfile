@@ -76,7 +76,7 @@ pipeline{
        withCredentials([
          usernamePassword(
            credentialsId: 'floci-id',
-           usernamwVariable: 'AWS_ACCESS_KEY_ID';
+           usernamwVariable: 'AWS_ACCESS_KEY_ID',
            passwordVariable: 'AWS_SECRET_ACCESS_KEY'
          )
        ]){
