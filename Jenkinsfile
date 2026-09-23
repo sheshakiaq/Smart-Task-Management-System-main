@@ -82,9 +82,9 @@ pipeline{
          echo 'updating S3 Bucket'
        sh ''' 
          aws s3 sync frontend/dist/ \
-         s3://$S3_BUCKET/ \
+         s3://${S3_BUCKET}/ \
          --delete \
-         --region $AWS_REGION
+         --region ${AWS_REGION}
        '''
        echo 'Frontend Uploaded Successfully'
        }      
@@ -94,7 +94,7 @@ pipeline{
        echo 'Deploying...'
        sh ''' 
          aws-cloudfront create-invitation \
-         --distribution-id $CLOUDFRONT_DIST_ID \
+         --distribution-id ${CLOUDFRONT_DIST_ID} \
          --paths "/*"
        '''
      }
