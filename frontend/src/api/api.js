@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://api.smarttask.local:31358",
+  baseURL: "https://api.smarttask.local:5000",
   headers: {
     "Content-Type": "application/json",
   },
