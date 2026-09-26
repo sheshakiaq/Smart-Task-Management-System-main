@@ -7,8 +7,8 @@ pipeline{
   
   environment{
     AWS_REGION= 'us-east-1'
-    S3_BUCKET= 'devops-flow-task'
-    CLOUDFRONT_DIST_ID= 'E1O2W4RXQBAN'
+    S3_BUCKET= 'devops-workflow-complete'
+    CLOUDFRONT_DIST_ID= 'E3K6CJLKU5897'
     AWS_CREDENTIALS= credentials('aws-id')
   }
   stages{
