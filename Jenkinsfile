@@ -52,9 +52,10 @@ pipeline{
             steps {
               echo 'Sonarqube process '
                 script {
-                    def scannerhome = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    def scannerhome = tool( name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation')
                     
-                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    withSonarQubeEnv('sonar-scanner'){
+                      withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                     sh """
                             ${scannerhome}/bin/sonar-scanner \
                             -Dsonar.projectKey=devops-flow \
@@ -63,9 +64,9 @@ pipeline{
                             -Dsonar.login=${SONAR_TOKEN}
                        """
                     }
-                   
-                 echo 'Sonarqube Process Success'
+                  }
                 } 
+                echo 'Sonarqube Process Success'
       }
     }
     stage('Quality Gate') {
