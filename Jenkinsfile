@@ -58,7 +58,7 @@ pipeline{
                     sh """
                             ${scannerhome}/bin/sonar-scanner \
                             -Dsonar.projectKey=devops-flow \
-                            -Dsonar.sources=frontend\
+                            -Dsonar.sources=frontend \
                             -Dsonar.host.url=http://localhost:9000 \
                             -Dsonar.login=${SONAR_TOKEN}
                        """
@@ -68,6 +68,13 @@ pipeline{
                 } 
       }
     }
+    stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
     stage('Build Frontend'){
       steps{
         echo 'Bulding React project'
@@ -96,6 +103,14 @@ pipeline{
          aws cloudfront create-invalidation \
          --distribution-id ${CLOUDFRONT_DIST_ID} \
          --paths "/*"
+       '''
+     }
+   }
+   stage('Build Docker Images'){
+     steps{
+       echo "Building Images"
+       sh '''
+         docker compose up -d
        '''
      }
    }
